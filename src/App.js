@@ -8,6 +8,7 @@ export default function App() {
   const [message, setMessage] = useState("");
   const [subject, setSubject] = useState("");
 
+  // function that handles change on input in the email inputs and update the state accordingly
   const handleInputChange = (e, index) => {
     const { value } = e.target;
     const list = [...recipientsList];
@@ -15,6 +16,7 @@ export default function App() {
     setrecipientsList(list);
   };
 
+  // function that handles removing email inputs and update the state accordingly
   const handleRemoveClick = (e, index) => {
     e.preventDefault();
     const list = [...recipientsList];
@@ -22,10 +24,10 @@ export default function App() {
     setrecipientsList(list);
   };
 
+  // function handels sending the data to the backend and resets the state accordingly
   const handleSendClick = () => {
-    if (validateInput() === false) 
-      return;
-  
+    if (validateInput() === false) return;
+
     Api.email
       .post({
         recipients: recipientsList,
@@ -47,6 +49,7 @@ export default function App() {
   };
 
   const validateInput = () => {
+    // validate email formats are correct
     if (validateRecipientsList() === false) {
       if (recipientsList.length === 1)
         alert("Email are invalid format please check then send again");
@@ -54,10 +57,13 @@ export default function App() {
       return false;
     }
 
+    // validate message is not empty
     if (message.length === 0) {
       alert("Please make sure to fill the message");
       return false;
     }
+
+    // validate subject is not empty
     if (subject.length === 0) {
       alert("Please make sure to fill the subject");
       return false;
@@ -71,9 +77,11 @@ export default function App() {
   };
 
   const validateEmail = (email) => {
+    // email regular expression
     var regexEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
     return regexEmail.test(email);
   };
+
   return (
     <div className="App">
       <header className="App-header">
