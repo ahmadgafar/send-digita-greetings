@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Api from "./Api";
 
 export default function App() {
@@ -23,6 +23,9 @@ export default function App() {
   };
 
   const handleSendClick = () => {
+    if (validateInput() === false) 
+      return;
+  
     Api.email
       .post({
         recipients: recipientsList,
@@ -43,8 +46,34 @@ export default function App() {
       });
   };
 
-  useEffect(() => {}, []);
+  const validateInput = () => {
+    if (validateRecipientsList() === false) {
+      if (recipientsList.length === 1)
+        alert("Email are invalid format please check then send again");
+      else alert("Emails are invalid format please check then send again");
+      return false;
+    }
 
+    if (message.length === 0) {
+      alert("Please make sure to fill the message");
+      return false;
+    }
+    if (subject.length === 0) {
+      alert("Please make sure to fill the subject");
+      return false;
+    }
+    return true;
+  };
+
+  const validateRecipientsList = () => {
+    for (let val of recipientsList)
+      if (validateEmail(val.email) === false) return false;
+  };
+
+  const validateEmail = (email) => {
+    var regexEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+    return regexEmail.test(email);
+  };
   return (
     <div className="App">
       <header className="App-header">
