@@ -21,3 +21,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `Deployed Herouko link`
 https://send-digital-greetings-fend.herokuapp.com/
+
+### Env Variables
+
+REACT_APP_API_ROOT
